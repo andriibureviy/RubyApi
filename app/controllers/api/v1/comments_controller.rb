@@ -7,7 +7,7 @@ class Api::V1::CommentsController < ApplicationController
     if @comment.save
       render json: @comment
     else
-      render error: { error: 'Unable to create comment.' }, status: 400
+      render error: { error: 'Unable to create comment.' }, status: :bad_request
     end
   end
   
@@ -19,9 +19,9 @@ class Api::V1::CommentsController < ApplicationController
     begin
       @comment = current_user.comments.find(params[:id])
       @comment.destroy
-      render json: { message: 'Comment successfully deleted.' }, status: 200
+      render json: { message: 'Comment successfully deleted.' }, status: :ok
     rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Unable to delete comment.' }, status: 400
+      render json: { error: 'Unable to delete comment.' }, status: :bad_request
     end
   end
 
