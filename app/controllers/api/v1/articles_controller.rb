@@ -18,16 +18,16 @@ class Api::V1::ArticlesController < ApplicationController
     if @article.save
       render json: @article
     else
-      render error: { error: 'Unable to create article.' }, status: 400
+      render error: { error: 'Unable to create article.' }, status: :bad_request
     end
   end
 
   def update
     if @article
       @article.update(article_params)
-      render json: { message: 'Article successfully updated.' }, status: 200
+      render json: { message: 'Article successfully updated.' }, status: :ok
     else
-      render json: { error: 'Unable to update article.' }, status: 400
+      render json: { error: 'Unable to update article.' }, status: :bad_request
     end
   end
 
@@ -35,9 +35,9 @@ class Api::V1::ArticlesController < ApplicationController
     begin
       @article = current_user.articles.find(params[:id])
       @article.destroy
-      render json: { message: 'Article successfully deleted.' }, status: 200
+      render json: { message: 'Article successfully deleted.' }, status: :ok
     rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Unable to delete article.' }, status: 400
+      render json: { error: 'Unable to delete article.' }, status: :bad_request
     end
   end
   

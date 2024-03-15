@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       render :'v1/user/create', status: :created
     else
-      render error: { error: 'Unable to create User.' }, status: 400
+      render error: { error: 'Unable to create User.' }, status: :bad_request
     end
   end
 
@@ -26,9 +26,9 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user
       @user.update(user_params)
-      render json: { message: 'User successfully updated.' }, status: 200
+      render json: { message: 'User successfully updated.' }, status: :ok
     else
-      render json: { error: ' Unable to update User.' }, status: 400
+      render json: { error: ' Unable to update User.' }, status: :bad_request
     end
   end
 
@@ -37,9 +37,9 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user
       @user.destroy
-      render json: { message: 'User successfully deleted.' }, status: 200
+      render json: { message: 'User successfully deleted.' }, status: :ok
     else
-      render json: { error: 'Unable to delete User.' }, status: 400
+      render json: { error: 'Unable to delete User.' }, status: :bad_request
     end
   end
 
